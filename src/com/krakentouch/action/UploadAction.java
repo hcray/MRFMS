@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.PropertyResourceBundle;
 
-import com.krakentouch.utils.PropertisHelper;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UploadAction extends ActionSupport{

@@ -1,9 +1,9 @@
 package com.krakentouch.bean;
 
 public class FileBean {
-	private String fileName;
-	private String fileOwner;
-	private String filePath;
+	private String fileName; //文件名
+	private String fileOwner;//文件所有者
+	private String filePath; //文件路径
 	
 	public String getFileName() {
 		return fileName;

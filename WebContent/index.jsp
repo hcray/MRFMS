@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>index</title>
+<title>杭州酷蓝科技会议系统</title>
 <style type="text/css">
 	label{
 	cursor:pointer;

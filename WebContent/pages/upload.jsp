@@ -21,7 +21,7 @@
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<form action="<%=path %>/upload/uploadAction" enctype="multipart/form-data" method="post">
+	<form action="<%=path %>/uploadAction" enctype="multipart/form-data" method="post">
 		<div>
 			<label for="id_uploadfile">文件上传</label>
 			<input type="file" name="uploadfile" id="id_uploadifile"/>
