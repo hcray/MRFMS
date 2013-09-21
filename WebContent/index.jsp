@@ -18,12 +18,26 @@ body {
 	background-color: #4682B4;
 }
 </style>
+<script type="text/javascript">
+	function ftn_submit(){
+		var username = document.getElementById("id_userName").value;
+		var password = document.getElementById("id_password").value;
+		if(username == null || username == ""){
+			alert("请输入用户名");
+		}else if(password == null || password == ""){
+			alert("请输入密码");
+		}else{
+			document.getElementsByName("loginform")[0].submit();
+		}
+	}
+
+</script>
 </head>
 <body>
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<form action="loginAction" method="post">
+	<form action="loginAction" method="post" name="loginform">
 		<div style="margin: 10px; width: 60%; text-align: right;">
 			<label for="id_loginName">名称：</label>
 			<input type="text" name="user.userName" id="id_userName" size="20"/>
@@ -38,7 +52,7 @@ body {
 			<input type="text" name="verification" id="id_verification"/>
 		</div>
 		<div>
-			<input type="submit" value="登录">
+			<input type="button" value="登录" onclick="ftn_submit()">
 		</div>
 	</form>
 	

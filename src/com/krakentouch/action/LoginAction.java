@@ -38,6 +38,10 @@ public class LoginAction extends ActionSupport{
 		String ret = "";
 		String userName = user.getUserName();
 		String password = user.getPassword();
+		
+		ActionContext context = ActionContext.getContext();
+		Map<String,Object> session = context.getSession();
+		
 		//管理员用户
 		if(userName.equals("administrator")){
 			PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
@@ -46,16 +50,17 @@ public class LoginAction extends ActionSupport{
 			if(password.equals(adminPassword)){
 				fileList = getFileByName(userName);
 				ret = "success";
+				session.put("curUser", userName);
 			}else{
 				ret = "passwordError";
 			}
 		}else{
-			ActionContext context = ActionContext.getContext();
 			Map<String,Object> application = context.getApplication();
 			if(application.containsKey(userName)){
 				String appPassword = application.get(userName).toString();
 				if(appPassword.equals(password)){
 					fileList = getFileByName(userName);
+					session.put("curUser", userName);
 					ret = "success";
 				}else{
 					ret = "passwordError";
@@ -63,9 +68,10 @@ public class LoginAction extends ActionSupport{
 			}else{
 				ret = "success";
 				application.put(userName, password);
+				session.put("curUser", userName);
 			}
 		}
-		System.out.println("fileList: " + fileList.size());
+		//System.out.println("fileList: " + fileList.size());
 		return ret;
 	}
 	
@@ -85,12 +91,21 @@ public class LoginAction extends ActionSupport{
 		for(File file:files){
 			if(file.isFile()){
 				FileBean fileBean = new FileBean();
+				
 				String fileName = file.getName();
 				String filePath = file.getAbsolutePath();
-				fileBean.setFileName(fileName);
-				fileBean.setFilePath(filePath);
-				fileBean.setFileOwner(username);
-				retList.add(fileBean);
+				//如果是管理员用户，显示所有的文件
+				if("administrator".equals(username)){
+					fileBean.setFileName(fileName);
+					fileBean.setFilePath(filePath);
+					fileBean.setFileOwner(username);
+					retList.add(fileBean);
+				}else if(fileName.split("_")[0].equals(username)){//不是管理员，只显示自己上传的文件
+					fileBean.setFileName(fileName);
+					fileBean.setFilePath(filePath);
+					fileBean.setFileOwner(username);
+					retList.add(fileBean);
+				}
 			}
 		}
 		return retList;

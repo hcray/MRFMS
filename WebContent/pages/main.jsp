@@ -16,20 +16,36 @@
 	width: 100%;
 	text-align: center;
 }
-body {
-	background-color: #4682B4;
-}
 </style>
 </head>
 <body>
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<s:iterator value="fileList" status="fileBean">
-		<s:property value="fileName"/>
-		<s:property value="fileOwner"/>
-		<s:property value="filePath"/>
-	</s:iterator> 
+	<table>
+		<tr>
+			<td>文件名</td>
+			<td>所有者</td>
+			<td>路径</td>
+			<td>操作</td>
+		</tr>
+		<s:iterator value="fileList" status="fileBean">
+		<tr>
+			<td>
+				<s:property value="fileName"/>
+			</td>
+			<td>
+				<s:property value="fileOwner"/>
+			</td>
+			<td>
+			<s:property value="filePath"/>
+			</td>
+			<td>
+				&nbsp;
+			</td>
+		</tr>	
+		</s:iterator> 
+	</table>
 	文件上传：
 	<a href="<%=path %>/pages/upload.jsp">上传文件</a>
 	

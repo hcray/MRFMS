@@ -11,7 +11,7 @@
     <package name="default" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
-
+		<!-- 
         <global-results>
             <result name="error">/error.jsp</result>
         </global-results>
@@ -19,7 +19,7 @@
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-        
+         -->
         <action name="loginAction" class="com.krakentouch.action.LoginAction">
             <result name="success" type="dispatcher">/pages/main.jsp</result>
             <result name="passwordError" type="dispatcher">/index.jsp</result>
