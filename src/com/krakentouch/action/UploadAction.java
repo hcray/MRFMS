@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.PropertyResourceBundle;
 
 import com.krakentouch.utils.PropertisHelper;
 import com.opensymphony.xwork2.ActionSupport;
@@ -60,8 +61,9 @@ public class UploadAction extends ActionSupport{
 		InputStream is = new FileInputStream(uploadfile);  
 		  
 		// �����ϴ��ļ�Ŀ¼  
-		PropertisHelper phelper = new PropertisHelper("itemAccreditUser.properties");
-		String uploadPath = phelper.getPropertiesValue("filesavePath");
+		PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
+				.getBundle("config");
+		String uploadPath = prb.getString("filesavePath");
 		  
 		// ����Ŀ���ļ�  
 		File toFile = new File(uploadPath, this.getUploadfileFileName());  

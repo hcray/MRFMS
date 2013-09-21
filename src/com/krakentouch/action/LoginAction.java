@@ -2,6 +2,7 @@ package com.krakentouch.action;
 
 
 import java.util.Map;
+import java.util.PropertyResourceBundle;
 
 import com.krakentouch.bean.User;
 import com.krakentouch.utils.PropertisHelper;
@@ -29,8 +30,9 @@ public class LoginAction extends ActionSupport{
 		String password = user.getPassword();
 		//管理员用户
 		if(userName.equals("administrator")){
-			PropertisHelper phelper = new PropertisHelper("itemAccreditUser.properties");
-			String adminPassword = phelper.getPropertiesValue("adminPassword");
+			PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
+					.getBundle("config");
+			String adminPassword = prb.getString("adminPassword");
 			if(password.equals(adminPassword)){
 				ret = "success";
 			}else{
