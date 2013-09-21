@@ -23,19 +23,19 @@ body {
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<form action="login/loginAction" method="post">
-		<div>
+	<form action="loginAction" method="post">
+		<div style="margin: 10px; width: 60%; text-align: right;">
 			<label for="id_loginName">名称：</label>
-				<input type="text" name="loginName" id="id_loginName" size="20"/>
+			<input type="text" name="user.userName" id="id_userName" size="20"/>
 		</div>
-		<div>
+		<div style="margin: 10px; width: 60%; text-align: right;">
 			<label for="id_password">密码：</label>
-				<input type="password" name="password" id="id_password" size="20"/>
+			<input type="password" name="user.password" id="id_password" size="20"/>
 		
 		</div>
-		<div>
+		<div style="margin: 10px; width: 60%; text-align: right;">
 			<label for="id_verification">验证码：</label>
-				<input type="text" name="verification" id="id_verification"/>
+			<input type="text" name="verification" id="id_verification"/>
 		</div>
 		<div>
 			<input type="submit" value="登录">

@@ -7,19 +7,20 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.krakentouch.utils.PropertisHelper;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UploadAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
 	
-	// myFileÊôĞÔÓÃÀ´·â×°ÉÏ´«µÄÎÄ¼ş  
+	// myFileï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½  
 	private File uploadfile;  
 	  
-	// myFileContentTypeÊôĞÔÓÃÀ´·â×°ÉÏ´«ÎÄ¼şµÄÀàĞÍ  
+	// myFileContentTypeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	private String uploadfileContentType;  
 	
-	// myFileFileNameÊôĞÔÓÃÀ´·â×°ÉÏ´«ÎÄ¼şµÄÎÄ¼şÃû  
+	// myFileFileNameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½  
 	private String uploadfileFileName;
 	
 	public File getUploadfile() {
@@ -55,31 +56,32 @@ public class UploadAction extends ActionSupport{
 	@Override
 	public String execute() throws Exception {
 		System.out.println("uploadfile: " + uploadfile);
-	    //»ùÓÚmyFile´´½¨Ò»¸öÎÄ¼şÊäÈëÁ÷  
+	    //ï¿½ï¿½ï¿½ï¿½myFileï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 		InputStream is = new FileInputStream(uploadfile);  
 		  
-		// ÉèÖÃÉÏ´«ÎÄ¼şÄ¿Â¼  
-		String uploadPath = "D://fileManage";
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½Ä¿Â¼  
+		PropertisHelper phelper = new PropertisHelper("itemAccreditUser.properties");
+		String uploadPath = phelper.getPropertiesValue("filesavePath");
 		  
-		// ÉèÖÃÄ¿±êÎÄ¼ş  
+		// ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ä¼ï¿½  
 		File toFile = new File(uploadPath, this.getUploadfileFileName());  
 		  
-		// ´´½¨Ò»¸öÊä³öÁ÷  
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 		OutputStream os = new FileOutputStream(toFile);  
 		
-		//ÉèÖÃ»º´æ  
+		//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½  
 		byte[] buffer = new byte[1024];  
 		
 		int length = 0;  
 		
-		//¶ÁÈ¡myFileÎÄ¼şÊä³öµ½toFileÎÄ¼şÖĞ  
+		//ï¿½ï¿½È¡myFileï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½toFileï¿½Ä¼ï¿½ï¿½ï¿½  
 		while ((length = is.read(buffer)) > 0) {  
 		    os.write(buffer, 0, length);  
 		}  
-		//¹Ø±ÕÊäÈëÁ÷  
+		//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 		is.close();  
 		  
-		//¹Ø±ÕÊä³öÁ÷  
+		//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 		os.close();
 
 		return "success";

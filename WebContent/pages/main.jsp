@@ -25,7 +25,7 @@ body {
 		杭州酷蓝科技会议系统
 	</h2>
 	文件上传：
-	<a href="<%=path %>/pages/upload/upload.jsp">上传文件</a>
+	<a href="<%=path %>/pages/upload.jsp">上传文件</a>
 	
 </body>
 </html>

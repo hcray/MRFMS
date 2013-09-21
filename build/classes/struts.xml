@@ -19,18 +19,15 @@
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-
-        <action name="index">
-            <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
-                <param name="namespace">/example</param>
-            </result>
+        
+        <action name="loginAction" class="com.krakentouch.action.LoginAction">
+            <result name="success" type="dispatcher">/pages/main.jsp</result>
+            <result name="passwordError" type="dispatcher">/index.jsp</result>
         </action>
+        
+        <action name="uploadAction" class="com.krakentouch.action.UploadAction">
+            <result name="success" type="dispatcher">/pages/main.jsp</result>
+        </action>
+
     </package>
-
-    <include file="login.xml"/>
-    <include file="upload.xml"/>
-
-    <!-- Add packages here -->
-
 </struts>
