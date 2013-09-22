@@ -26,8 +26,12 @@
         </action>
         
         <action name="uploadAction" class="com.krakentouch.action.UploadAction">
-            <result name="success" type="dispatcher">/pages/main.jsp</result>
+            <result name="success" type="chain">mainAction</result>
         </action>
 
+        <action name="mainAction" class="com.krakentouch.action.MainAction">
+            <result name="success" type="dispatcher">/pages/main.jsp</result>
+        </action>
     </package>
+     <constant name="struts.multipart.maxSize" value="100000000"/> 
 </struts>

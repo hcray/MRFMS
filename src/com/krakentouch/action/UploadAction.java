@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.PropertyResourceBundle;
 
@@ -60,6 +61,7 @@ public class UploadAction extends ActionSupport{
 		System.out.println("uploadfile: " + uploadfile);
 		ActionContext context = ActionContext.getContext();
 		Map<String,Object> session = context.getSession();
+		
 		String curUser = session.get("curUser").toString();
 	    //得到上传的文件
 		InputStream is = new FileInputStream(uploadfile);  
@@ -89,6 +91,7 @@ public class UploadAction extends ActionSupport{
 		  
 		//关闭输出流
 		os.close();
+		
 
 		return "success";
 	}

@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="<%=path%>/style/style.css">
 <title>杭州酷蓝科技会议系统</title>
 <style type="text/css">
 	label{
@@ -17,31 +18,44 @@
 	text-align: center;
 }
 </style>
+<script type="text/javascript">
+	//上传文件
+	function ftn_upload(){
+		window.open ('<%=path%>/pages/upload.jsp','newwindow','height=550,width=550,top=100,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no')
+	}
+</script>
 </head>
 <body>
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<table border="1" width="100%">
+	<table width="100%" class="standardTb">
 		<tr>
-			<td>文件名</td>
-			<td>所有者</td>
-			<td>路径</td>
-			<td>操作</td>
+			<td class="standardTd" width="15px">
+				<input type="checkbox"/>
+			</td>
+			<td class="standardTd">文件名</td>
+			<td class="standardTd">所有者</td>
+			<td class="standardTd">路径</td>
+			<td class="standardTd">操作</td>
 		</tr>
 		<s:iterator value="fileList" status="fileBean">
 		<tr>
-			<td>
+			<td class="standardTd">
+				<input type="checkbox"/>
+			</td>
+			<td class="standardTd">
 				<s:property value="fileName"/>
 			</td>
-			<td>
+			<td class="standardTd">
 				<s:property value="fileOwner"/>
 			</td>
-			<td>
+			<td class="standardTd">
 			<s:property value="filePath"/>
 			</td>
-			<td>
-				&nbsp;
+			<td class="standardTd">
+				<a href="#">删除</a>
+				<a href="#">下载</a>
 			</td>
 		</tr>	
 		</s:iterator> 
