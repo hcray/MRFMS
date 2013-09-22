@@ -38,19 +38,32 @@ body {
 		杭州酷蓝科技会议系统
 	</h2>
 	<form action="loginAction" method="post" name="loginform">
-		<div style="margin: 10px; width: 60%; text-align: right;">
-			<label for="id_loginName">名称：</label>
-			<input type="text" name="user.userName" id="id_userName" size="20"/>
-		</div>
-		<div style="margin: 10px; width: 60%; text-align: right;">
-			<label for="id_password">密码：</label>
-			<input type="password" name="user.password" id="id_password" size="20"/>
-		
-		</div>
-		<div style="margin: 10px; width: 60%; text-align: right;">
-			<label for="id_verification">验证码：</label>
-			<input type="text" name="verification" id="id_verification"/>
-		</div>
+		<table width="100%">
+			<tr>
+				<td width="50%" style="text-align: right;">
+					<label for="id_userName">名&nbsp;&nbsp;称：</label>
+				</td>
+				<td width="50%" style="text-align: left;">
+					<input type="text" name="user.userName" id="id_userName" size="20"/>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="text-align: right;">
+					<label for="id_password">密&nbsp;&nbsp;码：</label>
+				</td>
+				<td width="50%" style="text-align: left;">
+					<input type="password" name="user.password" id="id_password" size="20"/>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" style="text-align: right;">
+					<label for="id_verification">验证码：</label>
+				</td>
+				<td width="50%" style="text-align: left;">
+					<input type="text" name="verification" id="id_verification"/>
+				</td>
+			</tr>
+		</table>
 		<div>
 			<input type="button" value="登录" onclick="ftn_submit()">
 		</div>

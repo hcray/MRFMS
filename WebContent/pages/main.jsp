@@ -22,7 +22,7 @@
 	<h2 align="center" style="margin: 60px 0 60px 0;">
 		杭州酷蓝科技会议系统
 	</h2>
-	<table>
+	<table border="1" width="100%">
 		<tr>
 			<td>文件名</td>
 			<td>所有者</td>
