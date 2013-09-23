@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PropertyResourceBundle;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.krakentouch.bean.FileBean;
 import com.krakentouch.bean.User;
 import com.opensymphony.xwork2.ActionContext;
@@ -82,10 +84,9 @@ public class LoginAction extends ActionSupport{
 	 */
 	private List<FileBean> getFileByName(String username){
 		List<FileBean> retList = new ArrayList<FileBean>();
-		PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
-				.getBundle("config");
-		String filesavePath = prb.getString("filesavePath");
-		File saveFile = new File(filesavePath);
+        String uploadPath = ServletActionContext.getServletContext()  
+                .getRealPath("upload");
+		File saveFile = new File(uploadPath);
 		File[] files = saveFile.listFiles();
 		//遍历所有的文件
 		for(File file:files){

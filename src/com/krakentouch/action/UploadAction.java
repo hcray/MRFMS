@@ -6,9 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Map;
-import java.util.PropertyResourceBundle;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,40 +17,30 @@ public class UploadAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
 	
-	// myFile����������װ�ϴ����ļ�  
+	//myFile属性用来封装上传的文件   
 	private File uploadfile;  
 	  
-	// myFileContentType����������װ�ϴ��ļ�������  
+	//myFileContentType属性用来封装上传文件的类型 
 	private String uploadfileContentType;  
 	
-	// myFileFileName����������װ�ϴ��ļ����ļ���  
+	//myFileFileName属性用来封装上传文件的文件名
 	private String uploadfileFileName;
 	
 	public File getUploadfile() {
 		return uploadfile;
 	}
-
-
 	public void setUploadfile(File uploadfile) {
 		this.uploadfile = uploadfile;
 	}
-
-
 	public String getUploadfileContentType() {
 		return uploadfileContentType;
 	}
-
-
 	public void setUploadfileContentType(String uploadfileContentType) {
 		this.uploadfileContentType = uploadfileContentType;
 	}
-
-
 	public String getUploadfileFileName() {
 		return uploadfileFileName;
 	}
-
-
 	public void setUploadfileFileName(String uploadfileFileName) {
 		this.uploadfileFileName = uploadfileFileName;
 	}
@@ -58,6 +48,10 @@ public class UploadAction extends ActionSupport{
 
 	@Override
 	public String execute() throws Exception {
+	    // 设置上传文件目录  
+        String uploadPath = ServletActionContext.getServletContext()  
+                .getRealPath("upload"); 
+		
 		System.out.println("uploadfile: " + uploadfile);
 		ActionContext context = ActionContext.getContext();
 		Map<String,Object> session = context.getSession();
@@ -66,18 +60,13 @@ public class UploadAction extends ActionSupport{
 	    //得到上传的文件
 		InputStream is = new FileInputStream(uploadfile);  
 		  
-		//上传文件的存储路径
-		PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
-				.getBundle("config");
-		String uploadPath = prb.getString("filesavePath");
-		  
 		//上传的文件
 		File toFile = new File(uploadPath, curUser+"_"+this.getUploadfileFileName());  
 		  
 		//输入流
-		OutputStream os = new FileOutputStream(toFile);  
+		OutputStream os = new FileOutputStream(toFile); 
 		
-		//
+		//设置缓存
 		byte[] buffer = new byte[1024];  
 		
 		int length = 0;  
@@ -91,7 +80,6 @@ public class UploadAction extends ActionSupport{
 		  
 		//关闭输出流
 		os.close();
-		
 
 		return "success";
 	}

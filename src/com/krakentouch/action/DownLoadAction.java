@@ -1,15 +1,16 @@
 package com.krakentouch.action;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
-import org.apache.struts2.ServletActionContext;
+public class DownLoadAction extends BaseAction {
 
-import com.opensymphony.xwork2.ActionSupport;
-
-public class DownLoadAction extends ActionSupport {
-
-	private static final long serialVersionUID = 1L;
 	// 下载文件原始存放路径
 	private final static String DOWNLOADFILEPATH = "/upload/";
 	// 文件名参数变量
@@ -24,7 +25,8 @@ public class DownLoadAction extends ActionSupport {
 	}
 
 	// 从下载文件原始存放路径读取得到文件输出流
-	public InputStream getDownloadFile() {
+	public String downloadFile() throws Exception{
+		System.out.println("fileName: " + fileName);
 		String path = "";
 		try {
 			path = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
@@ -32,29 +34,31 @@ public class DownLoadAction extends ActionSupport {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("fileName: " + fileName +" path: " +path);
+		System.out.println("path: " + path);
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		OutputStream fos = null;
+		InputStream fis = null;
+		String filePath = path; 
 		
-		InputStream inputStream = ServletActionContext.getServletContext().getResourceAsStream(
-				path); 
-		System.out.println("inputStream: " + inputStream);
-		return inputStream;
-	}
-
-	// 如果下载文件名为中文，进行字符编码转换
-	public String getDownloadChineseFileName() {
-		String downloadChineseFileName = fileName;
-		try {
-			downloadChineseFileName = new String(
-					downloadChineseFileName.getBytes(), "ISO8859-1");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		File upLoadFile = new File(filePath);
+		fis = new FileInputStream(upLoadFile);
+		bis = new BufferedInputStream(fis);
+		fos = response.getOutputStream();
+		bos = new BufferedOutputStream(fos);
+		///response.setHeader("Content-disposition","attachment;filename="+URLEncoder.encode(fileName,"utf-8"));  
+		response.setHeader("Content-disposition","attachment;filename="+fileName);  
+		int byteRead = 0;
+		byte[] buffer = new byte[8192];
+		while((byteRead=bis.read(buffer,0,8192))!=-1){
+			bos.write(buffer,0,byteRead);
 		}
-
-		return downloadChineseFileName;
-	}
-
-	public String execute() {
-		return SUCCESS;
+		bos.flush();
+		fis.close();
+		bis.close();
+		fos.close();
+		bos.close();
+		return "success";
 	}
 
 }

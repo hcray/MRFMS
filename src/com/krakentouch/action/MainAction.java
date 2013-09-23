@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PropertyResourceBundle;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.krakentouch.bean.FileBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -44,10 +46,10 @@ public class MainAction{
 		System.out.println("filePath: " + filePath);
 		String path = new String(filePath.getBytes("ISO-8859-1"), "UTF-8");
 		path = path.replace("\\", "\\\\");
-		System.out.println("path: " + path);
-		File deleteFile = new File("D:\\fileManage\\123_问题.txt");
+		System.out.println("path: " + path.trim());
+		File deleteFile = new File("E:\\tomcat\\apache-tomcat-6.0.36\\webapps\\MRFMS\\upload");
 		System.out.println("fileName: " + deleteFile.getName());
-		deleteFile.deleteOnExit();
+		deleteFile.delete();
 		ActionContext context = ActionContext.getContext();
 		Map<String,Object> session = context.getSession();
 		String username = session.get("curUser").toString();
@@ -63,10 +65,9 @@ public class MainAction{
 	 */
 	private List<FileBean> getFileByName(String username){
 		List<FileBean> retList = new ArrayList<FileBean>();
-		PropertyResourceBundle prb=(PropertyResourceBundle) PropertyResourceBundle
-				.getBundle("config");
-		String filesavePath = prb.getString("filesavePath");
-		File saveFile = new File(filesavePath);
+        String uploadPath = ServletActionContext.getServletContext()  
+                .getRealPath("upload");
+		File saveFile = new File(uploadPath);
 		File[] files = saveFile.listFiles();
 		//遍历所有的文件
 		for(File file:files){
