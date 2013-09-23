@@ -11,7 +11,7 @@
     <package name="default" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
-		<!-- 
+		
         <global-results>
             <result name="error">/error.jsp</result>
         </global-results>
@@ -19,19 +19,41 @@
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-         -->
+         
         <action name="loginAction" class="com.krakentouch.action.LoginAction">
             <result name="success" type="dispatcher">/pages/main.jsp</result>
             <result name="passwordError" type="dispatcher">/index.jsp</result>
         </action>
         
         <action name="uploadAction" class="com.krakentouch.action.UploadAction">
-            <result name="success" type="chain">mainAction</result>
+            <result name="success" type="redirect">mainAction</result>
         </action>
 
-        <action name="mainAction" class="com.krakentouch.action.MainAction">
+        <action name="mainAction" class="com.krakentouch.action.MainAction" method="init">
             <result name="success" type="dispatcher">/pages/main.jsp</result>
         </action>
+
+        <action name="deleteFileAction" class="com.krakentouch.action.MainAction" method="delete">
+            <result name="success" type="dispatcher">/pages/main.jsp</result>
+        </action>
+        
+        <!-- 下载文件的Action定义 -->  
+        <action name="download" class="com.krakentouch.action.DownLoadAction">  
+            <!-- 设置文件名参数，由页面上传入 -->  
+            <param name="fileName"></param>  
+            <result name="success" type="stream">  
+                <!-- 下载文件类型定义 -->  
+                <param name="contentType">text/plain</param>  
+                <!-- 下载文件处理方法 -->  
+                <param name="contentDisposition">  
+                    attachment;filename="${downloadChineseFileName}"  
+                </param>  
+                <!-- 下载文件输出流定义 -->
+                <param name="inputName">downloadFile</param>  
+            </result>  
+        </action>
+        
     </package>
-     <constant name="struts.multipart.maxSize" value="100000000"/> 
+    
+    <constant name="struts.multipart.maxSize" value="100000000"/> 
 </struts>

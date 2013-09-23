@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="<%=path%>/style/style.css">
 <title>杭州酷蓝科技会议系统</title>
+<script type="text/javascript" src="<%=path%>/js/jquery-1.7.1.js"></script>
 <style type="text/css">
 	label{
 	cursor:pointer;
@@ -22,6 +23,14 @@
 	//上传文件
 	function ftn_upload(){
 		window.open ('<%=path%>/pages/upload.jsp','newwindow','height=550,width=550,top=100,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no')
+	}
+	
+	//删除文件
+	function deleteFile(td){
+		var filepath = $(td).parent("td").parent("tr").children("td").first().next().next().next().html();
+		$("#id_filepath").val(filepath);
+		document.getElementsByName("deleteFrom")[0].submit();
+	
 	}
 </script>
 </head>
@@ -54,14 +63,17 @@
 			<s:property value="filePath"/>
 			</td>
 			<td class="standardTd">
-				<a href="#">删除</a>
-				<a href="#">下载</a>
+				<a href="#" onclick="deleteFile(this)">删除</a>
+				<a href="download.action?fileName=<s:property value="filePath"/>">下载</a>
 			</td>
 		</tr>	
 		</s:iterator> 
 	</table>
 	文件上传：
 	<a href="<%=path %>/pages/upload.jsp">上传文件</a>
+	<form action="<%=path%>/deleteFileAction" method="post" name="deleteFrom">
+		<input type="hidden" name="filePath" id="id_filepath"/>
+	</form>
 	
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.krakentouch.action;
 
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,18 +12,25 @@ import com.krakentouch.bean.FileBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class MainAction extends ActionSupport{
+public class MainAction{
 	private static final long serialVersionUID = 1L;
 	private List<FileBean> fileList; //文件列表
-
+	private String filePath;//文件路径
+	
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	public List<FileBean> getFileList() {
 		return fileList;
 	}
 	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
-	@Override
-	public String execute() throws Exception {
+
+	public String init() throws Exception {
 		
 		ActionContext context = ActionContext.getContext();
 		Map<String,Object> session = context.getSession();
@@ -30,6 +38,23 @@ public class MainAction extends ActionSupport{
 		fileList = getFileByName(username);
 		return "success";
 	}
+	
+	
+	public String delete() throws UnsupportedEncodingException{
+		System.out.println("filePath: " + filePath);
+		String path = new String(filePath.getBytes("ISO-8859-1"), "UTF-8");
+		path = path.replace("\\", "\\\\");
+		System.out.println("path: " + path);
+		File deleteFile = new File("D:\\fileManage\\123_问题.txt");
+		System.out.println("fileName: " + deleteFile.getName());
+		deleteFile.deleteOnExit();
+		ActionContext context = ActionContext.getContext();
+		Map<String,Object> session = context.getSession();
+		String username = session.get("curUser").toString();
+		fileList = getFileByName(username);
+		return "success";
+	}
+	
 	
 	/***
 	 * 根据用户名得到其所有的文件
