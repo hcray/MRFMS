@@ -11,7 +11,7 @@
     <package name="default" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
-		<!-- 
+		
         <global-results>
             <result name="error">/error.jsp</result>
         </global-results>
@@ -19,15 +19,30 @@
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-         -->
+         
         <action name="loginAction" class="com.krakentouch.action.LoginAction">
             <result name="success" type="dispatcher">/pages/main.jsp</result>
             <result name="passwordError" type="dispatcher">/index.jsp</result>
         </action>
         
         <action name="uploadAction" class="com.krakentouch.action.UploadAction">
+            <result name="success" type="redirect">mainAction</result>
+        </action>
+
+        <action name="mainAction" class="com.krakentouch.action.MainAction" method="init">
             <result name="success" type="dispatcher">/pages/main.jsp</result>
         </action>
 
+        <action name="deleteFileAction" class="com.krakentouch.action.MainAction" method="delete">
+            <result name="success" type="dispatcher">/pages/main.jsp</result>
+        </action>
+        
+        <action name="download" class="com.krakentouch.action.DownLoadAction" method="downloadFile">  
+            <result name="success" type="dispatcher">mainAction</result>
+        </action>
+        
     </package>
+    
+    <constant name="struts.multipart.maxSize" value="100000000"/> 
+    <constant name="struts.multipart.saveDir" value="/tmp"></constant>
 </struts>

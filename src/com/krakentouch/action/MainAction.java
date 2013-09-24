@@ -14,11 +14,18 @@ import com.krakentouch.bean.FileBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class MainAction{
+public class MainAction extends BaseAction{
 	private static final long serialVersionUID = 1L;
 	private List<FileBean> fileList; //文件列表
 	private String filePath;//文件路径
+	private String fileName;//文件名称
 	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public String getFilePath() {
 		return filePath;
 	}
@@ -43,11 +50,12 @@ public class MainAction{
 	
 	
 	public String delete() throws UnsupportedEncodingException{
-		System.out.println("filePath: " + filePath);
-		String path = new String(filePath.getBytes("ISO-8859-1"), "UTF-8");
-		path = path.replace("\\", "\\\\");
-		System.out.println("path: " + path.trim());
-		File deleteFile = new File("E:\\tomcat\\apache-tomcat-6.0.36\\webapps\\MRFMS\\upload");
+        String uploadPath = ServletActionContext.getServletContext()  
+                .getRealPath("upload");
+		String fName = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
+		
+		System.out.println("删除文件路径: " + uploadPath +"\\"+ fName);
+		File deleteFile = new File(uploadPath +"\\"+ fName);
 		System.out.println("fileName: " + deleteFile.getName());
 		deleteFile.delete();
 		ActionContext context = ActionContext.getContext();

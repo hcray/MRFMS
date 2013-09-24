@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.apache.struts2.ServletActionContext;
+
 public class DownLoadAction extends BaseAction {
 
 	// 下载文件原始存放路径
@@ -27,20 +29,17 @@ public class DownLoadAction extends BaseAction {
 	// 从下载文件原始存放路径读取得到文件输出流
 	public String downloadFile() throws Exception{
 		System.out.println("fileName: " + fileName);
-		String path = "";
-		try {
-			path = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
-			path = path.replace("\\", "\\\\");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		System.out.println("path: " + path);
+		
+        String uploadPath = ServletActionContext.getServletContext()  
+                .getRealPath("upload");
+        String fName = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
+		
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 		OutputStream fos = null;
 		InputStream fis = null;
-		String filePath = path; 
-		
+		String filePath = uploadPath +"\\"+ fName; 
+		System.out.println("下载路径： " + filePath);
 		File upLoadFile = new File(filePath);
 		fis = new FileInputStream(upLoadFile);
 		bis = new BufferedInputStream(fis);

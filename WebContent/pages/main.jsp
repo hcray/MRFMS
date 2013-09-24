@@ -63,8 +63,8 @@
 			<s:property value="filePath"/>
 			</td>
 			<td class="standardTd">
-				<a href="#" onclick="deleteFile(this)">删除</a>
-				<a href="download.action?fileName=<s:property value="filePath"/>">下载</a>
+				<a href="deleteFileAction?fileName=<s:property value="fileName"/>">删除</a>
+				<a href="download.action?fileName=<s:property value="fileName"/>">下载</a>
 			</td>
 		</tr>	
 		</s:iterator> 

@@ -37,7 +37,6 @@
             <result name="success" type="dispatcher">/pages/main.jsp</result>
         </action>
         
-        <!-- 下载文件的Action定义 -->  
         <action name="download" class="com.krakentouch.action.DownLoadAction" method="downloadFile">  
             <result name="success" type="dispatcher">mainAction</result>
         </action>
@@ -45,4 +44,5 @@
     </package>
     
     <constant name="struts.multipart.maxSize" value="100000000"/> 
+    <constant name="struts.multipart.saveDir" value="/tmp"></constant>
 </struts>
