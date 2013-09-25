@@ -16,6 +16,9 @@
 	width: 100%;
 	text-align: left;
 }
+body {
+	background-color: #4682B4;
+}
 </style>
 </head>
 <body>

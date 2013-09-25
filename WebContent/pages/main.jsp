@@ -18,6 +18,9 @@
 	width: 100%;
 	text-align: center;
 }
+body {
+	background-color: #4682B4;
+}
 </style>
 <script type="text/javascript">
 	//上传文件
@@ -40,9 +43,6 @@
 	</h2>
 	<table width="100%" class="standardTb">
 		<tr>
-			<td class="standardTd" width="15px">
-				<input type="checkbox"/>
-			</td>
 			<td class="standardTd">文件名</td>
 			<td class="standardTd">所有者</td>
 			<td class="standardTd">路径</td>
@@ -50,9 +50,6 @@
 		</tr>
 		<s:iterator value="fileList" status="fileBean">
 		<tr>
-			<td class="standardTd">
-				<input type="checkbox"/>
-			</td>
 			<td class="standardTd">
 				<s:property value="fileName"/>
 			</td>
